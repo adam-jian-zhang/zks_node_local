@@ -1,0 +1,11 @@
+---
+golang_version: 1.20.5
+ci_user: adamz
+cookie: something_secret
+
+tools:
+- jq
+- tree
+- git
+- curl
+- cowsay

@@ -1,0 +1,12 @@
+---
+- hosts: all
+  become: true
+  # tasks:
+  #   - name: golang version
+  #     shell: /usr/local/go/bin/go version
+  
+  roles:
+    - {role: node_agent, tag: ['dev']}
+    # - {role: yq, tag: ['dev']}
+    # - {role: golang, tag: ['dev']}
+    # - {role: erlang, tag: ['dev']}

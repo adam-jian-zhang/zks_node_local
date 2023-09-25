@@ -1,0 +1,38 @@
+---
+# - name: download  node agent
+#   get_url:
+#     url: "http://10.161.102.146/tools/node_agent.tar.gz"
+#     dest: "/tmp/node_agent.tar.gz"
+
+# - name: Extract node agent
+#   become: true
+#   ansible.builtin.unarchive:
+#     src: "/tmp/node_agent.tar.gz"
+#     dest: /home/{{ ci_user }}/
+#     remote_src: yes
+
+# - name: delete tmp zip file
+#   become: true
+#   ansible.builtin.file:
+#     path: "/tmp/node_agent.tar.gz"
+#     state: absent
+
+- name: Extract node agent
+  become: true
+  ansible.builtin.unarchive:
+    src: "/home/{{ ci_user }}/dev_tools/artifacts/node_agent.tar.gz"
+    dest: /home/{{ ci_user }}/
+    remote_src: yes
+
+- name: replace cookie
+  ansible.builtin.template:
+    src:  COOKIE
+    dest: /home/{{ ci_user }}/node_agent/releases/COOKIE
+    owner: '{{ ci_user }}'
+    group: '{{ ci_user }}'
+    mode: '0600'
+
+- name: start node agent
+  become: true
+  # shell: RELEASE_COOKIE={{ cookie }} /home/{{ ci_user }}/node_agent/bin/node_agent daemon
+  shell: /home/{{ ci_user }}/node_agent/bin/node_agent daemon

@@ -1,0 +1,6 @@
+---
+- name: install tools
+  ansible.builtin.apt:
+    pkg: "{{ item }}"
+  loop: "{{ tools }}"
+ 
