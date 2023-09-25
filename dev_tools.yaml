@@ -2,8 +2,14 @@
 - hosts: 127.0.0.1
   connection: local
   become: true
+  vars:
+    golang_version: 1.21.1
+    tools:
+      - tree
+      - curl
+      - cowsay
   roles:
+    - {role: tools, tag: ['dev']}
     - {role: yq, tag: ['dev']}
     - {role: golang, tag: ['dev']}
     - {role: erlang, tag: ['dev']}
-    - {role: tools, tag: ['dev']}
