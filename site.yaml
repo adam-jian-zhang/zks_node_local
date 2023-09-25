@@ -1,0 +1,10 @@
+---
+- hosts: worker
+  become: true
+  tasks:
+    - name: golang version
+      shell: /usr/local/go/bin/go version
+  
+  roles:
+    - {role: yq, tag: ['dev']}
+    - {role: golang, tag: ['dev']}
