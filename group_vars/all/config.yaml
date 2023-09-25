@@ -1,3 +1,10 @@
 ---
 golang_version: 1.20.5
 ci_user: adamz
+
+tools:
+- jq
+- tree
+- git
+- curl
+- cowsay

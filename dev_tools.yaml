@@ -5,3 +5,5 @@
   roles:
     - {role: yq, tag: ['dev']}
     - {role: golang, tag: ['dev']}
+    - {role: erlang, tag: ['dev']}
+    - {role: tools, tag: ['dev']}
