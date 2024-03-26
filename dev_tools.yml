@@ -4,9 +4,12 @@
   become: true
   vars:
     tools:
+      - jq
+      - git
       - tree
       - curl
       - cowsay
   roles:
     - {role: tools, tag: ['dev']}
-    - {role: node_agent, tag: ['dev']}
+    - {role: golang, tag: ['dev']}
+    - {role: erlang, tag: ['dev']}
