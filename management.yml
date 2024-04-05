@@ -5,3 +5,4 @@
   roles:
     - {role: node_agent, tag: ['dev']}
     - {role: bootstrapper, tag: ['dev']}
+    - {role: helm, tag: ['dev']}

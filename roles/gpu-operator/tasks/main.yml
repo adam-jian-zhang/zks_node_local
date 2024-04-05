@@ -1,0 +1,16 @@
+---
+- name: add nvidia/gpu-operator repo
+  ansible.builtin.shell: helm repo add nvidia https://helm.ngc.nvidia.com/nvidia
+
+- name: helm repo update
+  ansible.builtin.shell: helm repo update
+
+- name: install gpu operator
+  ansible.builtin.shell: |
+    helm install --wait --generate-name \
+      -n gpu-operator --create-namespace \
+        nvidia/gpu-operator \
+        --set driver.enabled=true \
+        --set toolkit.enabled=true \
+        --set validator.driver.env[0].name=DISABLE_DEV_CHAR_SYMLINK_CREATION \
+        --set-string "validator.driver.env[0].value=True"
