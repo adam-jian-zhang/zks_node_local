@@ -1,6 +1,5 @@
 ---
-- hosts: 127.0.0.1
-  connection: local
+- hosts: all
   become: true
   vars:
     tools:
@@ -9,7 +8,11 @@
       - tree
       - curl
       - cowsay
+      - inotify-tools
+      - make
   roles:
     - {role: tools, tag: ['dev']}
+    - {role: helm, tag: ['dev']}
+    - {role: yq, tag: ['dev']}
     - {role: golang, tag: ['dev']}
     - {role: erlang, tag: ['dev']}
