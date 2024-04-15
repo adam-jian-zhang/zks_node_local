@@ -9,5 +9,8 @@ ansible-playbook --private-key {{ ansible deploy key }} -u {{ ansible user }} -i
 
 # node agent
 ansible-playbook --private-key ~/.ssh/id_ed25519 -i inventory.ini node_agent.yml -vvv
+
+# dev_tools
+ansible-playbook --private-key ~/.ssh/id_ed25519 -u zhangjian  -e ci_user=zhangjian  -i inventory.ini dev_tools.yml -vvv
 ```
 
