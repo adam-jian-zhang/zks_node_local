@@ -40,3 +40,28 @@
     pkg:
       - nvidia-container-toolkit
   when: package.nvidia_container_toolkit | default(false)
+
+# The node should already joined the cluster since it takes quite long for the packages to install.
+- name: reconfigure containerd with nvidia-ctk
+  become: true
+  ansible.builtin.shell: nvidia-ctk runtime configure --runtime=containerd
+  when: package.cuda_driver | default(false)
+
+- name: restart containerd
+  become: true
+  ansible.builtin.shell: systemctl restart containerd
+  when: package.cuda_driver | default(false)
+
+- name: Ensure node agent is in rc.local before reboot
+  ansible.builtin.lineinfile:
+    path: /etc/rc.local
+    insertbefore: '^exit 0'
+    line: /home/{{ user }}/node_agent/bin/node_agent daemon
+    create: yes
+  when: package.cuda_driver | default(false)
+
+- name: Reboot machine for the driver to work properly
+  # ansible.builtin.reboot:
+  #   msg: "Reboot gpu worker for the driver to work properly"
+  ansible.builtin.command: reboot
+  when: package.cuda_driver | default(false)
