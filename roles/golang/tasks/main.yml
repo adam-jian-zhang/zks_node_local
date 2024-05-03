@@ -28,7 +28,7 @@
     state: absent
 
 - name: add to path
-  shell: echo "export PATH=$PATH:/usr/local/go/bin" >> /home/{{ ci_user }}/.bashrc
+  shell: echo "export PATH=$PATH:/usr/local/go/bin" >> /home/{{ user }}/.bashrc
 
 - name: golang version
   shell: /usr/local/go/bin/go version

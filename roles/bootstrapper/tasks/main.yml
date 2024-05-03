@@ -2,19 +2,19 @@
 - name: Extract bootstrapper
   become: true
   ansible.builtin.unarchive:
-    src: "/home/{{ ci_user }}/dev_tools/artifacts/bootstrapper.tar.gz"
-    dest: /home/{{ ci_user }}/
+    src: "/home/{{ user }}/dev_tools/artifacts/bootstrapper.tar.gz"
+    dest: /home/{{ user }}/
     remote_src: yes
 
 - name: replace cookie
   ansible.builtin.template:
     src:  COOKIE
-    dest: /home/{{ ci_user }}/bootstrapper/releases/COOKIE
-    owner: '{{ ci_user }}'
-    group: '{{ ci_user }}'
+    dest: /home/{{ user }}/bootstrapper/releases/COOKIE
+    owner: '{{ user }}'
+    group: '{{ user }}'
     mode: '0600'
 
 - name: start bootstrapper
   become: true
-  # shell: RELEASE_COOKIE={{ cookie }} /home/{{ ci_user }}/bootstrapper/bin/bootstrapper daemon
-  shell: /home/{{ ci_user }}/bootstrapper/bin/bootstrapper daemon
+  # shell: RELEASE_COOKIE={{ cookie }} /home/{{ user }}/bootstrapper/bin/bootstrapper daemon
+  shell: /home/{{ user }}/bootstrapper/bin/bootstrapper daemon
