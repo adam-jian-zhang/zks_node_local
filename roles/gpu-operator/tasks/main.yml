@@ -10,7 +10,7 @@
     helm install --wait --generate-name \
       -n gpu-operator --create-namespace \
         nvidia/gpu-operator \
-        --set driver.enabled=true \
-        --set toolkit.enabled=true \
+        --set driver.enabled={{ gpu_operator.install_driver }} \
+        --set toolkit.enabled={{ gpu_operator.install_toolkit }}  \
         --set validator.driver.env[0].name=DISABLE_DEV_CHAR_SYMLINK_CREATION \
         --set-string "validator.driver.env[0].value=True"
