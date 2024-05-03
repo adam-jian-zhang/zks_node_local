@@ -4,3 +4,4 @@
   become: true
   roles:
     - {role: node_agent, tag: ['dev']}
+    - { role: cuda, tag: ["dev"] }

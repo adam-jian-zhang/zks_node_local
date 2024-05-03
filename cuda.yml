@@ -1,0 +1,11 @@
+---
+- hosts: all
+  become: true
+  vars:
+    package:
+      cuda_driver: true
+      cuda_toolkit: true
+      nvidia_container_toolkit: true
+
+  roles:
+    - { role: cuda, tag: ["dev"] }
