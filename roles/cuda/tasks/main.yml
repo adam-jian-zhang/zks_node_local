@@ -52,13 +52,14 @@
   ansible.builtin.shell: systemctl restart containerd
   when: package.cuda_driver | default(false)
 
-- name: Ensure node agent is in rc.local before reboot
-  ansible.builtin.lineinfile:
-    path: /etc/rc.local
-    insertbefore: '^exit 0'
-    line: /home/{{ user }}/node_agent/bin/node_agent daemon
-    create: yes
-  when: package.cuda_driver | default(false)
+# Move this logic to kstart
+# - name: Ensure node agent is in rc.local before reboot
+#   ansible.builtin.lineinfile:
+#     path: /etc/rc.local
+#     insertbefore: '^exit 0'
+#     line: /home/{{ user }}/node_agent/bin/node_agent daemon
+#     create: yes
+#   when: package.cuda_driver | default(false)
 
 - name: Reboot machine for the driver to work properly
   # ansible.builtin.reboot:
