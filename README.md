@@ -1,6 +1,7 @@
-# dev_tools
+# TKGN_NODE_LOCAL
 
-Ansible scripts to setup dev environment.
+Ansible scripts to setup TKGN nodes, the playbook will run based on the roles of the node, and
+in priciple it should only touch itself.
 
 ## Usage
 

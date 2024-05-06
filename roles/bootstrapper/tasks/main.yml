@@ -2,7 +2,7 @@
 - name: Extract bootstrapper
   become: true
   ansible.builtin.unarchive:
-    src: "/home/{{ user }}/dev_tools/artifacts/bootstrapper.tar.gz"
+    src: "/home/{{ user }}/tkgn_node_local/artifacts/bootstrapper.tar.gz"
     dest: /home/{{ user }}/
     remote_src: yes
 
