@@ -10,6 +10,9 @@
       - cowsay
       - inotify-tools
       - make
+      - gcc
+      - libyaml-dev
+      - libssl-dev
   roles:
     - {role: tools, tag: ['dev']}
     - {role: helm, tag: ['dev']}
