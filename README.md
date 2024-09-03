@@ -19,5 +19,7 @@ ansible-playbook --private-key ~/.ssh/id_ed25519 -i inventory.ini gpu-operator.y
 
 # cuda
 ansible-playbook --private-key ~/.ssh/id_ed25519 -i inventory.ini cuda.yml -e "@extra-vars.yml" -vvv
+
+ansible-playbook --private-key ~/.ssh/id_ed25519 -i inventory.ini images.yml
 ```
 

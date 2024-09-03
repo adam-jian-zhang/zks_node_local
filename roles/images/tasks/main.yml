@@ -1,0 +1,18 @@
+---
+- name: download antrea agent iamge
+  get_url:
+    url: "http://{{ file_server }}/images/antrea-agent.tar"
+    dest: "/tmp/antrea-agent.tar"
+
+- name: load antrea agent image
+  become: true
+  shell: ctr -n k8s.io image import /tmp/antrea-agent.tar
+
+- name: download antrea controller iamge
+  get_url:
+    url: "http://{{ file_server }}/images/antrea-controller.tar"
+    dest: "/tmp/antrea-controller.tar"
+
+- name: load antrea controller image
+  become: true
+  shell: ctr -n k8s.io image import /tmp/antrea-controller.tar
