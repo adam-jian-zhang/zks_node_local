@@ -2,6 +2,7 @@
 - hosts: all
   become: true
   vars:
+    golang_version: 1.22.9
     tools:
       - jq
       - git
