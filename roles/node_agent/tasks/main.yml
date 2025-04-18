@@ -20,7 +20,7 @@
 - name: Extract node agent
   become: true
   ansible.builtin.unarchive:
-    src: "/home/{{ user }}/tkgn_node_local/artifacts/node_agent.tar.gz"
+    src: "/home/{{ user }}/zks_node_local/artifacts/node_agent.tar.gz"
     dest: /home/{{ user }}/
     remote_src: yes
 

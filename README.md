@@ -1,6 +1,6 @@
-# TKGN_NODE_LOCAL
+# ZKS_NODE_LOCAL
 
-Ansible scripts to setup TKGN nodes, the playbook will run based on the roles of the node, and
+Ansible scripts to setup ZKS nodes, the playbook will run based on the roles of the node, and
 in priciple it should only touch itself.
 
 ## Usage
