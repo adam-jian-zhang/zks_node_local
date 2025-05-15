@@ -56,5 +56,5 @@ ansible-playbook --private-key ~/.ssh/id_ed25519 -u adamz -i inventory.ini worke
 ### NATS
 
 ```bash
-ansible-playbook --private-key ~/.ssh/id_ed25519 -u zhangjian -i inventory.ini nats.yml -vvv
+ansible-playbook --private-key ~/.ssh/id_ed25519 -u adamz -i inventory.ini nats.yml -vvv
 ```

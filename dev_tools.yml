@@ -2,7 +2,7 @@
 - hosts: all
   become: true
   vars:
-    golang_version: 1.22.9
+    golang_version: 1.23.8
     tools:
       - jq
       - git
@@ -12,11 +12,12 @@
       - inotify-tools
       - make
       - gcc
+      - unzip
       - libyaml-dev
       - libssl-dev
   roles:
     - {role: tools, tag: ['dev']}
-    - {role: helm, tag: ['dev']}
-    - {role: yq, tag: ['dev']}
+    # - {role: helm, tag: ['dev']}
+    # - {role: yq, tag: ['dev']}
     - {role: golang, tag: ['dev']}
-    - {role: erlang, tag: ['dev']}
+    # - {role: erlang, tag: ['dev']}

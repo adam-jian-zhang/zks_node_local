@@ -2,5 +2,5 @@
 - name: install tools
   ansible.builtin.apt:
     pkg: "{{ item }}"
+    update_cache: yes
   loop: "{{ tools }}"
- 
