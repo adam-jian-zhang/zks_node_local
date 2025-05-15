@@ -1,0 +1,37 @@
+---
+- name: make sure target file not present
+  become: true
+  ansible.builtin.file:
+    path: "/tmp/nkeys-v{{ nkey_version }}-linux-amd64.zip"
+    state: absent
+
+- name: make sure target tmp folder
+  become: true
+  ansible.builtin.file:
+    path: "/tmp/nkeys-v{{ nkey_version }}-linux-amd64"
+    state: absent
+
+- name: download nkey
+  get_url:
+    url: "https://github.com/nats-io/nkeys/releases/download/v{{ nkey_version }}/nkeys-v{{ nkey_version }}-linux-amd64.zip"
+    dest: "/tmp/nkeys-v{{ nkey_version }}-linux-amd64.zip"
+
+- name: unzip nkey
+  become: true
+  shell: unzip "/tmp/nkeys-v{{ nkey_version }}-linux-amd64.zip" -d /tmp
+
+- name: move nkey to bin folder
+  become: true
+  shell: mv "/tmp/nkeys-v{{ nkey_version }}-linux-amd64/nk" /usr/local/bin/nk
+
+- name: delete tmp zip file
+  become: true
+  ansible.builtin.file:
+    path: "/tmp/nkeys-v{{ nkey_version }}-linux-amd64.zip"
+    state: absent
+
+- name: delete target tmp folder
+  become: true
+  ansible.builtin.file:
+    path: "/tmp/nkeys-v{{ nkey_version }}-linux-amd64"
+    state: absent

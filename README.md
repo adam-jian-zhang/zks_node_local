@@ -11,9 +11,6 @@ ansible-playbook --private-key {{ ansible deploy key }} -u {{ ansible user }} -i
 # node agent
 ansible-playbook --private-key ~/.ssh/id_ed25519 -i inventory.ini node_agent.yml -vvv
 
-# dev_tools
-ansible-playbook --private-key ~/.ssh/id_ed25519 -u zhangjian -e user=zhangjian  -i inventory.ini dev_tools.yml -vvv
-
 # gpu-operator
 ansible-playbook --private-key ~/.ssh/id_ed25519 -i inventory.ini gpu-operator.yml -e "@extra-vars.yml" -vvv
 
@@ -23,3 +20,41 @@ ansible-playbook --private-key ~/.ssh/id_ed25519 -i inventory.ini cuda.yml -e "@
 ansible-playbook --private-key ~/.ssh/id_ed25519 -i inventory.ini images.yml
 ```
 
+### docker
+
+```bash
+# docker
+ansible-playbook --private-key ~/.ssh/id_ed25519 -u adamz -i inventory.ini docker.yml -vvv
+```
+### Golang
+
+```bash
+ansible-playbook --private-key ~/.ssh/id_ed25519 -u zhangjian -i inventory.ini golang.yml -vvv
+```
+
+### Erlang
+
+```bash
+ansible-playbook --private-key ~/.ssh/id_ed25519 -u zhangjian -i inventory.ini erlang.yml -vvv
+```
+
+### Desktop
+```bash
+ansible-playbook --private-key ~/.ssh/id_ed25519 -u zhangjian -i inventory.ini desktop.yml -vvv
+```
+
+### tools
+
+```bash
+ansible-playbook --private-key ~/.ssh/id_ed25519 -u adamz -i inventory.ini dev_tools.yml -vvv
+
+ansible-playbook --private-key ~/.ssh/id_ed25519 -u adamz -i inventory.ini tkgi_toolkit.yml -vvv
+
+ansible-playbook --private-key ~/.ssh/id_ed25519 -u adamz -i inventory.ini worker.yml -vvv
+```
+
+### NATS
+
+```bash
+ansible-playbook --private-key ~/.ssh/id_ed25519 -u zhangjian -i inventory.ini nats.yml -vvv
+```

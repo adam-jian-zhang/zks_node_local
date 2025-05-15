@@ -1,0 +1,53 @@
+---
+- name: update repo
+  become: true
+  apt:
+    upgrade: no
+    update_cache: true
+
+- name: Install docker pre-req
+  become: true
+  ansible.builtin.apt:
+    pkg:
+      - ca-certificates
+      - curl
+
+- name: install keyrings
+  become: true
+  command: install -m 0755 -d /etc/apt/keyrings
+
+- name: download docker
+  become: true
+  command: curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+
+- name: change permission
+  become: true
+  command: chmod a+r /etc/apt/keyrings/docker.asc
+
+- name: add docker apt repository
+  become: true
+  shell: echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+- name: update repo
+  become: true
+  apt:
+    upgrade: no
+    update_cache: yes
+
+- name: Install docker
+  become: true
+  ansible.builtin.apt:
+    pkg:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-buildx-plugin
+      - docker-compose-plugin
+
+- name: change docker sock permission
+  become: true
+  command: chmod 666 /var/run/docker.sock
+
+- name: add current user to docker group
+  become: false
+  command: sudo usermod -aG docker ${USER}

@@ -1,0 +1,25 @@
+---
+- name: make sure target file not present
+  become: true
+  ansible.builtin.file:
+    path: "/tmp/nsc-linux-amd64.zip"
+    state: absent
+
+- name: download nsc
+  get_url:
+    url: "https://github.com/nats-io/nsc/releases/download/v{{ nsc_version }}/nsc-linux-amd64.zip"
+    dest: "/tmp/nsc-linux-amd64.zip"
+
+- name: unzip nsc
+  become: true
+  shell: unzip /tmp/nsc-linux-amd64.zip -d /tmp
+
+- name: move nsc to bin folder
+  become: true
+  shell: mv /tmp/nsc /usr/local/bin/nsc
+
+- name: delete tmp zip file
+  become: true
+  ansible.builtin.file:
+    path: "/tmp/nsc-linux-amd64.zip"
+    state: absent

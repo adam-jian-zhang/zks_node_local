@@ -1,0 +1,7 @@
+[user]
+	email = adam.zhang@broadcom.com
+	name = Adam Zhang
+[core]
+	editor = vim
+[init]
+	defaultBranch = main

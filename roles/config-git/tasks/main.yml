@@ -1,0 +1,5 @@
+- name: update gitconfig file
+  become: false
+  template:
+    src: .gitconfig
+    dest: /home/${USER}/.gitconfig

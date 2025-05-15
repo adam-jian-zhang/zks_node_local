@@ -1,0 +1,38 @@
+---
+- name: make sure target file not present
+  become: true
+  ansible.builtin.file:
+    path: "/tmp/credhub-linux-amd64-{{ credhub_version }}.tgz"
+    state: absent
+
+- name: make sure target folder not present
+  become: true
+  ansible.builtin.file:
+    path: "/tmp/credhub"
+    state: absent
+
+- name: download credhub
+  get_url:
+    url: "https://github.com/cloudfoundry-incubator/credhub-cli/releases/download/{{ credhub_version }}/credhub-linux-amd64-{{ credhub_version }}.tgz"
+    dest: "/tmp/credhub-linux-amd64-{{ credhub_version }}.tgz"
+
+- name: extract credhub
+  become: true
+  shell:  tar xzvf "/tmp/credhub-linux-amd64-{{ credhub_version }}.tgz" -C /tmp
+
+- name: move credhub to bin folder
+  become: true
+  shell: mv "/tmp/credhub" /usr/local/bin/credhub
+
+- name: delete tmp zip file
+  become: true
+
+  ansible.builtin.file:
+    path: "/tmp/credhub-linux-amd64-{{ credhub_version }}.tgz"
+    state: absent
+
+- name: delete extra LICENSE.txt
+  become: true
+  ansible.builtin.file:
+    path: "/tmp/LICENSE.txt"
+    state: absent

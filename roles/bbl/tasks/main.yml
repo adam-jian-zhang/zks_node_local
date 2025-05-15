@@ -1,0 +1,19 @@
+---
+- name: make sure target file not present
+  become: true
+  ansible.builtin.file:
+    path: "/tmp/bbl-{{ bbl_version }}-linux-amd64"
+    state: absent
+
+- name: download bbl
+  get_url:
+    url: "https://github.com/cloudfoundry/bosh-bootloader/releases/download/v{{ bbl_version }}/bbl-v{{ bbl_version }}_linux_amd64"
+    dest: "/tmp/bbl-v{{ bbl_version }}_linux_amd64"
+
+- name: make it executable
+  become: true
+  shell: chmod +x "/tmp/bbl-v{{ bbl_version }}_linux_amd64"
+
+- name: move bbl to bin folder
+  become: true
+  shell: mv "/tmp/bbl-v{{ bbl_version }}_linux_amd64" /usr/local/bin/bbl

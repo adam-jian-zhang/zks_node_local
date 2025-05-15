@@ -1,0 +1,11 @@
+- name: create .docker directory
+  become: false
+  ansible.builtin.file:
+    path: /home/${USER}/.docker
+    state: directory
+
+- name: update docker config file
+  become: false
+  template:
+    src: config.json
+    dest: /home/${USER}/.docker/config.json

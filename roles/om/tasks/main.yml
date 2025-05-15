@@ -1,0 +1,19 @@
+---
+- name: make sure target file not present
+  become: true
+  ansible.builtin.file:
+    path: "/tmp/om-linux-{{ om_version }}"
+    state: absent
+
+- name: download om-cli
+  get_url:
+    url: "https://github.com/pivotal-cf/om/releases/download/{{ om_version }}/om-linux-{{ om_version }}"
+    dest: "/tmp/om-linux-{{ om_version }}"
+
+- name: make it executable
+  become: true
+  shell: chmod +x "/tmp/om-linux-{{ om_version }}"
+
+- name: move om-cli to bin folder
+  become: true
+  shell: mv "/tmp/om-linux-{{ om_version }}" /usr/local/bin/om

@@ -1,0 +1,20 @@
+---
+- hosts: desktop
+  become: true
+  vars:
+    golang_version: 1.23.8
+    ci_user: zhangjian
+
+  # - import_playbook: nats.yaml
+  # tasks:
+  #   - name: golang version
+  #     shell: /usr/local/go/bin/go version
+
+  roles:
+    - { role: yq, tag: ["dev"] }
+    - { role: erlang, tag: ["dev"] }
+    - { role: golang, tag: ["dev"] }
+    - { role: docker, tag: ["dev"] }
+    - { role: config-docker, tag: ["dev"] }
+
+- import_playbook: apt_managed_tools.yml

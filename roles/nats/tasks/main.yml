@@ -1,0 +1,5 @@
+---
+- include_tasks: nats-server.yml
+- include_tasks: nats.yml
+- include_tasks: nkey.yml
+- include_tasks: nsc.yml

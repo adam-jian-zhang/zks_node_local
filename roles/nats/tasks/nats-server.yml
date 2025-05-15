@@ -1,0 +1,37 @@
+---
+- name: make sure target file not present
+  become: true
+  ansible.builtin.file:
+    path: "/tmp/nats-server-v{{ nats_server_version }}-linux-amd64.zip"
+    state: absent
+
+- name: make sure target folder not present
+  become: true
+  ansible.builtin.file:
+    path: "/tmp/nats-server-v{{ nats_server_version }}-linux-amd64"
+    state: absent
+
+- name: download nats-server
+  get_url:
+    url: " https://github.com/nats-io/nats-server/releases/download/v{{ nats_server_version }}/nats-server-v{{ nats_server_version }}-linux-amd64.zip"
+    dest: "/tmp/nats-server-v{{ nats_server_version }}-linux-amd64.zip"
+
+- name: unzip nats-server
+  become: true
+  shell: unzip "/tmp/nats-server-v{{ nats_server_version }}-linux-amd64.zip" -d /tmp
+
+- name: move nats-server to bin folder
+  become: true
+  shell: mv "/tmp/nats-server-v{{ nats_server_version }}-linux-amd64/nats-server" /usr/local/bin/
+
+- name: delete tmp zip file
+  become: true
+  ansible.builtin.file:
+    path: "/tmp/nats-server-v{{ nats_server_version }}-linux-amd64.zip"
+    state: absent
+
+- name: delete tmp zip folder
+  become: true
+  ansible.builtin.file:
+    path: "/tmp/nats-server-v{{ nats_server_version }}-linux-amd64"
+    state: absent

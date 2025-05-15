@@ -1,0 +1,19 @@
+---
+- name: make sure target file not present
+  become: true
+  ansible.builtin.file:
+    path: "/tmp/bosh-cli-{{ bosh_version }}-linux-amd64"
+    state: absent
+
+- name: download bosh-cli
+  get_url:
+    url: "https://github.com/cloudfoundry/bosh-cli/releases/download/v{{ bosh_version }}/bosh-cli-{{ bosh_version }}-linux-amd64"
+    dest: "/tmp/bosh-cli-{{ bosh_version }}-linux-amd64"
+
+- name: make it executable
+  become: true
+  shell: chmod +x "/tmp/bosh-cli-{{ bosh_version }}-linux-amd64"
+
+- name: move bosh-cli to bin folder
+  become: true
+  shell: mv "/tmp/bosh-cli-{{ bosh_version }}-linux-amd64" /usr/local/bin/bosh

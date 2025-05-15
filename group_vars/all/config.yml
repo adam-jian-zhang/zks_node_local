@@ -1,11 +1,12 @@
 ---
-golang_version: 1.22.5
+golang_version: 1.23.8
 user: adamz
-cookie: something_secret
+cookie: top_secret
 
 tools:
 - jq
 - tree
 - git
+- inotify-tools
 - curl
 - cowsay

@@ -1,0 +1,37 @@
+---
+- name: make sure target file not present
+  become: true
+  ansible.builtin.file:
+    path: "/tmp/terraform_{{ terraform_version }}_linux_amd64.zip"
+    state: absent
+
+- name: make sure target folder not present
+  become: true
+  ansible.builtin.file:
+    path: "/tmp/terraform"
+    state: absent
+
+- name: download terraform
+  get_url:
+    url: "https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_linux_amd64.zip"
+    dest: "/tmp/terraform_{{ terraform_version }}_linux_amd64.zip"
+
+- name: unzip terraform
+  become: true
+  shell: unzip "/tmp/terraform_{{ terraform_version }}_linux_amd64.zip" -d /tmp
+
+- name: move terraform to bin folder
+  become: true
+  shell: mv "/tmp/terraform" /usr/local/bin/terraform
+
+- name: delete tmp zip file
+  become: true
+  ansible.builtin.file:
+    path: "/tmp/terraform_{{ terraform_version }}_linux_amd64.zip"
+    state: absent
+
+- name: delete extra LICENSE.txt
+  become: true
+  ansible.builtin.file:
+    path: "/tmp/LICENSE.txt"
+    state: absent
