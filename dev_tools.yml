@@ -15,6 +15,7 @@
       - unzip
       - libyaml-dev
       - libssl-dev
+      - genisoimage
   roles:
     - {role: tools, tag: ['dev']}
     # - {role: helm, tag: ['dev']}
