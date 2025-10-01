@@ -3,6 +3,7 @@
   become: true
   vars:
     golang_version: 1.24.3
+    user: zhangjian # change to the os user
     tools:
       - jq
       - git
