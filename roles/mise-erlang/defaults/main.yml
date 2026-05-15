@@ -1,0 +1,5 @@
+---
+# Default variables for mise-erlang role
+
+mise_erlang_version: "27.3.4.6"
+mise_elixir_version: "1.18.3-otp-27"

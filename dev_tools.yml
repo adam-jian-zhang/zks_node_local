@@ -24,4 +24,5 @@
     - {role: nats, tag: ['dev']}
     - {role: yq, tag: ['dev']}
     - {role: golang, tag: ['dev']}
-    - {role: erlang, tag: ['dev']}
+    - {role: mise, tag: ['dev']}
+    - {role: mise-erlang, tag: ['dev']}

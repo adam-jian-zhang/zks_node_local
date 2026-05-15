@@ -12,7 +12,8 @@
 
   roles:
     - { role: yq, tag: ["dev"] }
-    - { role: erlang, tag: ["dev"] }
+    - {role: mise, tag: ['dev']}
+    - {role: mise-erlang, tag: ['dev']}
     - { role: golang, tag: ["dev"] }
     - { role: docker, tag: ["dev"] }
     - { role: config-docker, tag: ["dev"] }

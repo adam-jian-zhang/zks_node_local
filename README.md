@@ -35,7 +35,10 @@ ansible-playbook --private-key ~/.ssh/id_ed25519 -u zhangjian -i inventory.ini g
 ### Erlang
 
 ```bash
+# apt managed
 ansible-playbook --private-key ~/.ssh/id_ed25519 -u zhangjian -i inventory.ini erlang.yml -vvv
+# mise mananged
+ansible-playbook --private-key ~/.ssh/id_ed25519 -u zhangjian -i inventory.ini erlang-by-mise.yml -vvv
 ```
 
 ### Desktop

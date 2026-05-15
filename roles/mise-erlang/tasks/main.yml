@@ -1,0 +1,26 @@
+---
+- name: Install erlang build dependencies
+  become: true
+  ansible.builtin.apt:
+    pkg:
+      - build-essential
+      - autoconf
+      - m4
+      - libncurses-dev
+      - libssl-dev
+      - unzip
+      - curl
+    state: present
+    update_cache: yes
+
+- name: Install Erlang using mise
+  become: false
+  ansible.builtin.command: "mise use --yes --global erlang@{{ mise_erlang_version }}"
+  register: mise_erlang
+  changed_when: "'installing' in mise_erlang.stdout or 'installing' in mise_erlang.stderr"
+
+- name: Install Elixir using mise
+  become: false
+  ansible.builtin.command: "mise use --yes --global elixir@{{ mise_elixir_version }}"
+  register: mise_elixir
+  changed_when: "'installing' in mise_elixir.stdout or 'installing' in mise_elixir.stderr"
