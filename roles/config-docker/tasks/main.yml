@@ -1,11 +1,31 @@
-- name: create .docker directory
+- name: Ensure .docker directory exists
   become: false
   ansible.builtin.file:
-    path: /home/${USER}/.docker
+    path: ~/.docker
     state: directory
+    mode: '0700'
 
-- name: update docker config file
+- name: Check if remote config.json exists
   become: false
-  template:
-    src: config.json
-    dest: /home/${USER}/.docker/config.json
+  ansible.builtin.stat:
+    path: ~/.docker/config.json
+  register: docker_config_stat
+
+- name: Read existing remote config.json
+  become: false
+  ansible.builtin.slurp:
+    src: ~/.docker/config.json
+  register: existing_docker_config
+  when: docker_config_stat.stat.exists
+
+- name: Set base config fact
+  become: false
+  ansible.builtin.set_fact:
+    current_config: "{{ (existing_docker_config.content | b64decode | from_json) if docker_config_stat.stat.exists else {'auths': {}} }}"
+
+- name: Write merged config.json
+  become: false
+  ansible.builtin.copy:
+    content: "{{ current_config | combine({'auths': {'https://index.docker.io/v1/': {'auth': docker_registry_auth}}}, recursive=True) | to_nice_json }}\n"
+    dest: ~/.docker/config.json
+    mode: '0600'

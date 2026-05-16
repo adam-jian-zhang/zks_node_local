@@ -24,7 +24,7 @@ ansible-playbook --private-key ~/.ssh/id_ed25519 -i inventory.ini images.yml
 
 ```bash
 # docker
-ansible-playbook --private-key ~/.ssh/id_ed25519 -u adamz -i inventory.ini docker.yml -vvv
+ansible-playbook --private-key ~/.ssh/id_ed25519 -u zhangjian -i inventory.ini docker.yml -vvv
 ```
 ### Golang
 
