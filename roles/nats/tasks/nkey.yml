@@ -35,3 +35,12 @@
   ansible.builtin.file:
     path: "/tmp/nkeys-v{{ nkey_version }}-linux-amd64"
     state: absent
+
+- name: nk version
+  shell: /usr/local/bin/nk -v
+  register: nk_version_output
+  changed_when: false
+
+- name: show nk version
+  debug:
+    msg: "{{ nk_version_output.stdout }}"
