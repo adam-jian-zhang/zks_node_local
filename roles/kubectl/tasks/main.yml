@@ -1,19 +1,17 @@
 ---
-- name: make sure target file not present
+- name: Download and install kubectl
   become: true
-  ansible.builtin.file:
-    path: "/tmp/kubectl-{{ kubectl_version }}-linux-amd64"
-    state: absent
-
-- name: download kubectl binary
-  get_url:
+  ansible.builtin.get_url:
     url: "https://dl.k8s.io/release/{{ kubectl_version }}/bin/linux/amd64/kubectl"
-    dest: "/tmp/kubectl-{{ kubectl_version }}-linux-amd64"
+    dest: /usr/local/bin/kubectl
+    mode: '0755'
 
-- name: make it executable
-  become: true
-  shell: chmod +x "/tmp/kubectl-{{ kubectl_version }}-linux-amd64"
+- name: kubectl version
+  shell: /usr/local/bin/kubectl version --client
+  register: kubectl_version_output
+  changed_when: false
+  ignore_errors: yes
 
-- name: move kubectl to bin folder
-  become: true
-  shell: mv "/tmp/kubectl-{{ kubectl_version }}-linux-amd64" /usr/local/bin/kubectl
+- name: show kubectl version
+  debug:
+    msg: "{{ kubectl_version_output.stdout }}"

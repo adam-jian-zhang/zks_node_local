@@ -1,19 +1,16 @@
 ---
-- name: make sure target file not present
+- name: Download and install om-cli
   become: true
-  ansible.builtin.file:
-    path: "/tmp/om-linux-{{ om_version }}"
-    state: absent
-
-- name: download om-cli
-  get_url:
+  ansible.builtin.get_url:
     url: "https://github.com/pivotal-cf/om/releases/download/{{ om_version }}/om-linux-{{ om_version }}"
-    dest: "/tmp/om-linux-{{ om_version }}"
+    dest: /usr/local/bin/om
+    mode: '0755'
 
-- name: make it executable
-  become: true
-  shell: chmod +x "/tmp/om-linux-{{ om_version }}"
+- name: om version
+  shell: /usr/local/bin/om --version
+  register: om_version_output
+  changed_when: false
 
-- name: move om-cli to bin folder
-  become: true
-  shell: mv "/tmp/om-linux-{{ om_version }}" /usr/local/bin/om
+- name: show om version
+  debug:
+    msg: "{{ om_version_output.stdout }}"
