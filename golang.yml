@@ -2,7 +2,6 @@
 - hosts: all
   become: true
   vars:
-    golang_version: 1.23.8
-    # ci_user: zhangjian
+    golang_version: 1.26.3
   roles:
     - { role: golang, tag: ["dev"] }

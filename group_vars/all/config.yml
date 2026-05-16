@@ -1,5 +1,5 @@
 ---
-golang_version: 1.23.8
+golang_version: 1.26.3
 user: adamz
 cookie: top_secret
 docker_registry_auth: "{{ (lookup('file', '~/.docker/config.json') | from_json).auths['https://index.docker.io/v1/'].auth }}"
