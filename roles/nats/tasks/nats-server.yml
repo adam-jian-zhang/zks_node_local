@@ -1,40 +1,15 @@
 ---
-- name: make sure target file not present
+- name: Download and extract nats-server directly to /usr/local/bin
   become: true
-  ansible.builtin.file:
-    path: "/tmp/nats-server-v{{ nats_server_version }}-linux-amd64.tar.gz"
-    state: absent
-
-- name: make sure target folder not present
-  become: true
-  ansible.builtin.file:
-    path: "/tmp/nats-server-v{{ nats_server_version }}-linux-amd64"
-    state: absent
-
-- name: download nats-server
-  get_url:
-    url: " https://github.com/nats-io/nats-server/releases/download/v{{ nats_server_version }}/nats-server-v{{ nats_server_version }}-linux-amd64.tar.gz"
-    dest: "/tmp/nats-server-v{{ nats_server_version }}-linux-amd64.tar.gz"
-
-- name: untar nats-server
-  become: true
-  shell: tar xvf "/tmp/nats-server-v{{ nats_server_version }}-linux-amd64.tar.gz" -C /tmp
-
-- name: move nats-server to bin folder
-  become: true
-  shell: mv "/tmp/nats-server-v{{ nats_server_version }}-linux-amd64/nats-server" /usr/local/bin/
-
-- name: delete tmp tar file
-  become: true
-  ansible.builtin.file:
-    path: "/tmp/nats-server-v{{ nats_server_version }}-linux-amd64.tar.gz"
-    state: absent
-
-- name: delete tmp tar folder
-  become: true
-  ansible.builtin.file:
-    path: "/tmp/nats-server-v{{ nats_server_version }}-linux-amd64"
-    state: absent
+  ansible.builtin.unarchive:
+    src: "https://github.com/nats-io/nats-server/releases/download/v{{ nats_server_version }}/nats-server-v{{ nats_server_version }}-linux-amd64.tar.gz"
+    dest: /usr/local/bin/
+    remote_src: yes
+    extra_opts:
+      - --strip-components=1
+      - --wildcards
+      - '*/nats-server'
+    mode: '0755'
 
 - name: nats-server version
   shell: /usr/local/bin/nats-server --version

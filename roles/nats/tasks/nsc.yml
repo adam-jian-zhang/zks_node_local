@@ -1,28 +1,18 @@
 ---
-- name: make sure target file not present
+- name: Download and extract nsc zip to tmp
   become: true
-  ansible.builtin.file:
-    path: "/tmp/nsc-linux-amd64.zip"
-    state: absent
+  ansible.builtin.unarchive:
+    src: "https://github.com/nats-io/nsc/releases/download/v{{ nsc_version }}/nsc-linux-amd64.zip"
+    dest: /tmp/
+    remote_src: yes
 
-- name: download nsc
-  get_url:
-    url: "https://github.com/nats-io/nsc/releases/download/v{{ nsc_version }}/nsc-linux-amd64.zip"
-    dest: "/tmp/nsc-linux-amd64.zip"
-
-- name: unzip nsc
+- name: Copy nsc binary to /usr/local/bin
   become: true
-  shell: unzip /tmp/nsc-linux-amd64.zip -d /tmp
-
-- name: move nsc to bin folder
-  become: true
-  shell: mv /tmp/nsc /usr/local/bin/nsc
-
-- name: delete tmp zip file
-  become: true
-  ansible.builtin.file:
-    path: "/tmp/nsc-linux-amd64.zip"
-    state: absent
+  ansible.builtin.copy:
+    src: /tmp/nsc
+    dest: /usr/local/bin/nsc
+    remote_src: yes
+    mode: '0755'
 
 - name: nsc version
   shell: /usr/local/bin/nsc --version
