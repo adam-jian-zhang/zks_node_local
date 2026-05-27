@@ -2,14 +2,14 @@
 - name: Download and extract nats zip to tmp
   become: true
   ansible.builtin.unarchive:
-    src: "https://github.com/nats-io/natscli/releases/download/v{{ nats_version }}/nats-{{ nats_version }}-linux-amd64.zip"
+    src: "https://github.com/nats-io/natscli/releases/download/v{{ nats_version }}/nats-{{ nats_version }}-linux-{{ arch }}.zip"
     dest: /tmp/
     remote_src: yes
 
 - name: Copy nats binary to /usr/local/bin
   become: true
   ansible.builtin.copy:
-    src: "/tmp/nats-{{ nats_version }}-linux-amd64/nats"
+    src: "/tmp/nats-{{ nats_version }}-linux-{{ arch }}/nats"
     dest: /usr/local/bin/nats
     remote_src: yes
     mode: '0755'

@@ -2,7 +2,7 @@
 - name: Download and extract nsc zip to tmp
   become: true
   ansible.builtin.unarchive:
-    src: "https://github.com/nats-io/nsc/releases/download/v{{ nsc_version }}/nsc-linux-amd64.zip"
+    src: "https://github.com/nats-io/nsc/releases/download/v{{ nsc_version }}/nsc-linux-{{ arch }}.zip"
     dest: /tmp/
     remote_src: yes
 

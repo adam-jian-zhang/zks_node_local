@@ -3,5 +3,6 @@
   become: true
   vars:
     golang_version: 1.26.3
+    # arch: arm64
   roles:
     - { role: golang, tag: ["dev"] }

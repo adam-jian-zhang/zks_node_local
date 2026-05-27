@@ -6,5 +6,6 @@
     nkey_version: 0.4.15
     nsc_version: 2.12.2
     nats_server_version: 2.12.7
+    # arch: amd64
   roles:
     - { role: nats, tag: ["dev"] }

@@ -2,14 +2,14 @@
 - name: Download and extract nkey zip to tmp
   become: true
   ansible.builtin.unarchive:
-    src: "https://github.com/nats-io/nkeys/releases/download/v{{ nkey_version }}/nkeys-v{{ nkey_version }}-linux-amd64.zip"
+    src: "https://github.com/nats-io/nkeys/releases/download/v{{ nkey_version }}/nkeys-v{{ nkey_version }}-linux-{{ arch }}.zip"
     dest: /tmp/
     remote_src: yes
 
 - name: Copy nk binary to /usr/local/bin
   become: true
   ansible.builtin.copy:
-    src: "/tmp/nkeys-v{{ nkey_version }}-linux-amd64/nk"
+    src: "/tmp/nkeys-v{{ nkey_version }}-linux-{{ arch }}/nk"
     dest: /usr/local/bin/nk
     remote_src: yes
     mode: '0755'

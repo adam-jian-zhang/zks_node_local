@@ -2,7 +2,7 @@
 - name: Download and extract nats-server directly to /usr/local/bin
   become: true
   ansible.builtin.unarchive:
-    src: "https://github.com/nats-io/nats-server/releases/download/v{{ nats_server_version }}/nats-server-v{{ nats_server_version }}-linux-amd64.tar.gz"
+    src: "https://github.com/nats-io/nats-server/releases/download/v{{ nats_server_version }}/nats-server-v{{ nats_server_version }}-linux-{{ arch }}.tar.gz"
     dest: /usr/local/bin/
     remote_src: yes
     extra_opts:
